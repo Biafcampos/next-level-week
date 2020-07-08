@@ -1,8 +1,10 @@
-import express, { request, response } from 'express'; 
+import express  from 'express'; 
+import routes from './routes';
 
 const app = express();
   
-    app.use(express.json());
+app.use(express.json());
+app.use(routes);
 // Rota: Endereço completo da requisição 
 // Recurso: Qual entidadee estamos acessando do sistema
 
@@ -17,33 +19,9 @@ const app = express();
 // request para,: parametros que vem na propria rota que identifica um recurso
 //query param: parametro que vem na propria rota geralmente opcionais para filtros paginação
 //request Body: parametros para criação/atualiazação 
-const users = [
-    'Diego',
-    'Cleiton',
-    'Robson',
-    'Daniel'
-];
 
-app.get('/users', (request,response) => {
-    const search = String (request.query.search);
-   const filteredUsers = search ? users.filter(user => user.includes(search)) : users;
-//JSON
-  return response.json(filteredUsers);
-});
-app.get('/users/:id', (request,response) => {
+//SELECT * FROM users WHERE name = 'Diego'
+//knex('users').where('name','Diego').select('*')
 
-    const id = Number(request.params.id);
-    const user = users[id];
-    return response.json(user)
-});
 
-app.post('/users',(request,response) => {
-    const data = request.body;
-    console.log(data);
-    const user = {
-        name: data.name,
-        email: data.email,
-    };
-    return response.json(user);
-});
 app.listen(3333);
