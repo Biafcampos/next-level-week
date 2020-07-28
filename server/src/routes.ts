@@ -9,8 +9,10 @@ const routes = express.Router();
     const itemsController = new ItemsController();
 
     routes.get('/items',itemsController.index);
+
     routes.post('/points', pointsController.create);
     routes.get('/points/:id', pointsController.show);
+    routes.post('/points', pointsController.index);
 
     //index: listagem
     //show: mostrar 1
